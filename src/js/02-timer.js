@@ -10,6 +10,8 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     console.log(selectedDates[0]);
+    //const newDate = new Date();
+    //console.log(newDate.getMonth());
   },
 };
 
