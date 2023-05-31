@@ -14,6 +14,10 @@ const options = {
 };
 
 flatpickr("#datetime-picker", options);
+/*
+addLeadingZero(value) {
+
+}*/
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time
