@@ -3,6 +3,15 @@ import flatpickr from "flatpickr";
 // Додатковий імпорт стилів
 import "flatpickr/dist/flatpickr.min.css";
 
+const timeOutputs = document.querySelectorAll(".value");
+const daysOutput = timeOutputs[0];
+const hoursOutput = timeOutputs[1];
+const minutesOutput = timeOutputs[2];
+const secondsOutput = timeOutputs[3];
+
+let period;
+let periodSetInterval;
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -10,16 +19,29 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     console.log(selectedDates[0]);
-    //const newDate = new Date();
-    //console.log(newDate.getMonth());
+    const oldDate = new Date();
+    const newDate = new Date(selectedDates);
+    period = newDate - oldDate;
+    periodSetInterval = setInterval(addLeadingZero, 1000);
   },
 };
 
 flatpickr("#datetime-picker", options);
-/*
-addLeadingZero(value) {
 
-}*/
+function addLeadingZero() {
+    if (period < 1000) {
+      clearInterval(periodSetInterval);
+      console.log("Time Up!");
+    }
+    else {
+      period -= 1000;
+    }
+
+    daysOutput.textContent = String(convertMs(period).days).padStart(2, "0");
+    hoursOutput.textContent = String(convertMs(period).hours).padStart(2, "0");
+    minutesOutput.textContent = String(convertMs(period).minutes).padStart(2, "0");
+    secondsOutput.textContent = String(convertMs(period).seconds).padStart(2, "0");
+}
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time
