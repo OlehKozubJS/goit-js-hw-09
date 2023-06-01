@@ -29,7 +29,7 @@ const newClock =
             position: absolute;
             top: 270px;
             left: 150px;
-            height: 100px;
+            height: 50px;
             width: 200px;
             font-size: 20px;
             color: blueviolet;
@@ -38,9 +38,9 @@ const newClock =
 
         .alert-data {
             position: absolute;
-            top: 370px;
+            top: 320px;
             left: 150px;
-            height: 100px;
+            height: 50px;
             width: 200px;
             font-size: 20px;
             color: red;
