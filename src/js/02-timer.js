@@ -3,11 +3,20 @@ import flatpickr from "flatpickr";
 // Додатковий імпорт стилів
 import "flatpickr/dist/flatpickr.min.css";
 
+import { createClockFace } from "./clockface";
+import { arrowAnimationFunction} from "./clockface";
+
+const timer = document.querySelector(".timer");
 const timeOutputs = document.querySelectorAll(".value");
 const daysOutput = timeOutputs[0];
 const hoursOutput = timeOutputs[1];
 const minutesOutput = timeOutputs[2];
 const secondsOutput = timeOutputs[3];
+const startButton = document.querySelector("[data-start]");
+
+createClockFace(timer);
+
+startButton.addEventListener("click", startFunction);
 
 let period;
 let periodSetInterval;
@@ -22,25 +31,41 @@ const options = {
     const oldDate = new Date();
     const newDate = new Date(selectedDates);
     period = newDate - oldDate;
-    periodSetInterval = setInterval(addLeadingZero, 1000);
   },
 };
 
 flatpickr("#datetime-picker", options);
 
+function startFunction() {
+  startButton.removeEventListener("click", startFunction);
+  periodSetInterval = setInterval(addLeadingZero, 1000);
+}
+
 function addLeadingZero() {
+    let timeLeft = 0;
+
     if (period < 1000) {
       clearInterval(periodSetInterval);
-      console.log("Time Up!");
+      startButton.addEventListener("click", startFunction);
+      timeLeft = "Time Up!<br>";
     }
     else {
       period -= 1000;
+      timeLeft = "";
     }
 
     daysOutput.textContent = String(convertMs(period).days).padStart(2, "0");
     hoursOutput.textContent = String(convertMs(period).hours).padStart(2, "0");
     minutesOutput.textContent = String(convertMs(period).minutes).padStart(2, "0");
     secondsOutput.textContent = String(convertMs(period).seconds).padStart(2, "0");
+
+    let daysLeft = String(convertMs(period).days).padStart(2, "0");
+    let hoursLeft = String(convertMs(period).hours).padStart(2, "0");
+    let minutesLeft = String(convertMs(period).minutes).padStart(2, "0");
+    let secondsLeft= String(convertMs(period).seconds).padStart(2, "0");
+    timeLeft += daysLeft + ":" + hoursLeft + ":" + minutesLeft + ":" + secondsLeft;
+
+    arrowAnimationFunction(convertMs(period).hours, convertMs(period).minutes, Number(secondsLeft), timeLeft);
 }
 
 function convertMs(ms) {
