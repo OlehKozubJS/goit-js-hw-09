@@ -1,4 +1,5 @@
 let dateTimeData;
+let alertData;
 let clockFace;
 let secArrow;
 let minArrow;
@@ -7,6 +8,7 @@ let hourArrow;
 const newClock =
     `<div class="clock-face">
         <div class="date-time-data"></div>
+        <div class="alert-data"></div>
         <div class="arrow hour-arrow"></div>
         <div class="arrow min-arrow"></div>
         <div class="arrow sec-arrow"></div>
@@ -31,6 +33,17 @@ const newClock =
             width: 200px;
             font-size: 20px;
             color: blueviolet;
+            text-align: center;
+        }
+
+        .alert-data {
+            position: absolute;
+            top: 370px;
+            left: 150px;
+            height: 100px;
+            width: 200px;
+            font-size: 20px;
+            color: red;
             text-align: center;
         }
         
@@ -115,6 +128,7 @@ export function createClockFace(placeToAdd) {
     secArrow = document.querySelector(".sec-arrow");
     minArrow = document.querySelector(".min-arrow");
     hourArrow = document.querySelector(".hour-arrow");
+    alertData = document.querySelector(".alert-data");
 
     let clockDigits = "";
     let clockMarkings = "";
@@ -142,4 +156,8 @@ export function arrowAnimationFunction(hours, minutes, seconds, date) {
     hourArrow.style.transform = `rotate(${hours % 12 * 30}deg)`;
     minArrow.style.transform = `rotate(${minutes * 6}deg)`;
     secArrow.style.transform = `rotate(${seconds * 6}deg)`;
+}
+
+export function clockFaceAlert(message) {
+    alertData.innerHTML = message;
 }

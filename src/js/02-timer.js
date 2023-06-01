@@ -3,7 +3,7 @@ import flatpickr from "flatpickr";
 // Додатковий імпорт стилів
 import "flatpickr/dist/flatpickr.min.css";
 
-import { createClockFace } from "./clockface";
+import { clockFaceAlert, createClockFace } from "./clockface";
 import { arrowAnimationFunction} from "./clockface";
 
 const timer = document.querySelector(".timer");
@@ -17,7 +17,13 @@ const startButton = document.querySelector("[data-start]");
 createClockFace(timer);
 
 let period;
+let difference
 let periodSetInterval = NaN;
+let daysLeft;
+let hoursLeft;
+let minutesLeft;
+let secondsLeft;
+let timeLeft = "0 days, 00:00:00";
 
 const options = {
   enableTime: true,
@@ -28,18 +34,15 @@ const options = {
     console.log(selectedDates[0]);
     const oldDate = new Date();
     const newDate = new Date(selectedDates);
-    period = newDate - oldDate;
+    difference = newDate - oldDate;
 
-    if (periodSetInterval !== NaN) {
-      clearInterval(periodSetInterval);
-    }
-
-    if (period <= 0) {
-      arrowAnimationFunction(0, 0, 0, "Please choose a date in the future");
+    if (difference <= 0) {
+      clockFaceAlert("Please choose a date in the future");
       startButton.removeEventListener("click", startFunction);
     }
 
     else {
+      clockFaceAlert(timeToString(convertMs(difference)));
       startButton.addEventListener("click", startFunction);
     }
   },
@@ -47,21 +50,20 @@ const options = {
 
 flatpickr("#datetime-picker", options);
 
-function startFunction() {
+function startFunction() {  
+  period = difference;
+  if (periodSetInterval !== NaN) {
+    clearInterval(periodSetInterval);
+  }
   periodSetInterval = setInterval(addLeadingZero, 1000);
 }
 
 function addLeadingZero() {
-    let timeLeft = "";
-    let daysLeft;
-    let hoursLeft;
-    let minutesLeft;
-    let secondsLeft;
-
     if (period < 1000) {
       clearInterval(periodSetInterval);
-      timeLeft = "Time Up!<br>";
+      clockFaceAlert("Time up!");
     }
+
     else {
       period -= 1000;
   
@@ -70,20 +72,25 @@ function addLeadingZero() {
       minutesLeft = convertMs(period).minutes;
       secondsLeft = convertMs(period).seconds;
 
-      let daysLeftString = String(daysLeft);
-      let hoursLeftString = String(hoursLeft).padStart(2, "0");
-      let minutesLeftString = String(minutesLeft).padStart(2, "0");
-      let secondsLeftString = String(secondsLeft).padStart(2, "0");
-
-      daysOutput.textContent = daysLeftString;
-      hoursOutput.textContent = hoursLeftString;
-      minutesOutput.textContent = minutesLeftString;
-      secondsOutput.textContent = secondsLeftString;
-
-      timeLeft = daysLeftString + " days, " + hoursLeftString + ":" + minutesLeftString + ":" + secondsLeftString;
+      timeLeft = timeToString(convertMs(period));
     }
 
     arrowAnimationFunction(hoursLeft, minutesLeft, secondsLeft, timeLeft);
+}
+
+
+function timeToString({days: daysLeft, hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft}) {
+  let daysLeftString = String(daysLeft);
+  let hoursLeftString = String(hoursLeft).padStart(2, "0");
+  let minutesLeftString = String(minutesLeft).padStart(2, "0");
+  let secondsLeftString = String(secondsLeft).padStart(2, "0");
+
+  daysOutput.textContent = daysLeftString;
+  hoursOutput.textContent = hoursLeftString;
+  minutesOutput.textContent = minutesLeftString;
+  secondsOutput.textContent = secondsLeftString;
+
+  return daysLeftString + " days, " + hoursLeftString + ":" + minutesLeftString + ":" + secondsLeftString;
 }
 
 function convertMs(ms) {
