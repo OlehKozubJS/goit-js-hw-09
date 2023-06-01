@@ -19,7 +19,6 @@ createClockFace(timer);
 let period;
 let difference
 let periodSetInterval = NaN;
-let daysLeft;
 let hoursLeft;
 let minutesLeft;
 let secondsLeft;
@@ -42,7 +41,7 @@ const options = {
     }
 
     else {
-      clockFaceAlert(timeToString(convertMs(difference)));
+      clockFaceAlert(timeToString(difference));
       startButton.addEventListener("click", startFunction);
     }
   },
@@ -67,19 +66,19 @@ function addLeadingZero() {
     else {
       period -= 1000;
   
-      daysLeft = convertMs(period).days;
       hoursLeft = convertMs(period).hours;
       minutesLeft = convertMs(period).minutes;
       secondsLeft = convertMs(period).seconds;
 
-      timeLeft = timeToString(convertMs(period));
+      timeLeft = timeToString(period);
     }
 
     arrowAnimationFunction(hoursLeft, minutesLeft, secondsLeft, timeLeft);
 }
 
 
-function timeToString({days: daysLeft, hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft}) {
+function timeToString(mseconds) {
+  const {days: daysLeft, hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft} = convertMs(mseconds);
   let daysLeftString = String(daysLeft);
   let hoursLeftString = String(hoursLeft).padStart(2, "0");
   let minutesLeftString = String(minutesLeft).padStart(2, "0");
