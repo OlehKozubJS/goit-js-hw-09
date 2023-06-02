@@ -5,21 +5,36 @@
     margin-inline: auto;
     display: flex;
     justify-content: space-evenly;
+    color: blue;
 }
 
 .field {
     width: 100px;
+    display: flex;
+    flex-direction: column;
 }
 
 .value {
-
+    text-align: center;
+    font-size: 50px;;
 }
 
 .label {
-
+    text-align: center;
+    font-size: 25px;
 }
 
 /* CLOCKFACE SETTINGS */
+
+.alert-data {
+    margin-inline: auto;
+    height: 50px;
+    width: 500px;
+    font-size: 20px;
+    font-size: 25px;
+    color: red;
+    text-align: center;
+}
 
 .clock-face {
     height: 500px;
@@ -28,28 +43,6 @@
     background-color: aqua;
     margin-inline: auto;
     position: relative;
-}
-
-.date-time-data {
-    position: absolute;
-    top: 270px;
-    left: 150px;
-    height: 50px;
-    width: 200px;
-    font-size: 20px;
-    color: blueviolet;
-    text-align: center;
-}
-
-.alert-data {
-    position: absolute;
-    top: 320px;
-    left: 150px;
-    height: 50px;
-    width: 200px;
-    font-size: 20px;
-    color: red;
-    text-align: center;
 }
 
 .arrow {
