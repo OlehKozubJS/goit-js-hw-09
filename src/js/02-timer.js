@@ -6,7 +6,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import { clockFaceAlert, createClockFace } from "./clockface";
 import { arrowAnimationFunction} from "./clockface";
 
-const timer = document.querySelector(".timer");
+const clockFaceContainer = document.querySelector(".clock-face-container");
 const timeOutputs = document.querySelectorAll(".value");
 const daysOutput = timeOutputs[0];
 const hoursOutput = timeOutputs[1];
@@ -14,7 +14,7 @@ const minutesOutput = timeOutputs[2];
 const secondsOutput = timeOutputs[3];
 const startButton = document.querySelector("[data-start]");
 
-createClockFace(timer);
+createClockFace(clockFaceContainer);
 
 let period;
 let difference

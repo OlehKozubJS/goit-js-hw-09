@@ -1,5 +1,25 @@
+/* DIGITAL DISPLAY SETTINGS */
+
+.timer {
+    width: 500px;
+    margin-inline: auto;
+}
+
+.field {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.value {
+    
+}
+
+.label {
+
+}
 
 /* CLOCKFACE SETTINGS */
+
 .clock-face {
     height: 500px;
     width: 500px;
