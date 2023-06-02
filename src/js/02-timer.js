@@ -22,7 +22,6 @@ let periodSetInterval = NaN;
 let hoursLeft;
 let minutesLeft;
 let secondsLeft;
-let timeLeft = "0 days, 00:00:00";
 
 const options = {
   enableTime: true,
@@ -41,7 +40,7 @@ const options = {
     }
 
     else {
-      clockFaceAlert(timeToString(difference));
+      clockFaceAlert("");
       startButton.addEventListener("click", startFunction);
     }
   },
@@ -70,10 +69,9 @@ function addLeadingZero() {
       minutesLeft = convertMs(period).minutes;
       secondsLeft = convertMs(period).seconds;
 
-      timeLeft = timeToString(period);
     }
 
-    arrowAnimationFunction(hoursLeft, minutesLeft, secondsLeft, timeLeft);
+    arrowAnimationFunction(hoursLeft, minutesLeft, secondsLeft);
 }
 
 
