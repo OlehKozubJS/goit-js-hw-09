@@ -64,31 +64,21 @@ function addLeadingZero() {
 
     else {
       period -= 1000;
-  
+
+      daysLeft = convertMs(period).days;  
       hoursLeft = convertMs(period).hours;
       minutesLeft = convertMs(period).minutes;
       secondsLeft = convertMs(period).seconds;
 
+      daysOutput.textContent = String(daysLeft);
+      hoursOutput.textContent = String(hoursLeft).padStart(2, "0");
+      minutesOutput.textContent = String(minutesLeft).padStart(2, "0");
+      secondsOutput.textContent = String(secondsLeft).padStart(2, "0");
     }
 
     arrowAnimationFunction(hoursLeft, minutesLeft, secondsLeft);
 }
 
-
-function timeToString(mseconds) {
-  const {days: daysLeft, hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft} = convertMs(mseconds);
-  let daysLeftString = String(daysLeft);
-  let hoursLeftString = String(hoursLeft).padStart(2, "0");
-  let minutesLeftString = String(minutesLeft).padStart(2, "0");
-  let secondsLeftString = String(secondsLeft).padStart(2, "0");
-
-  daysOutput.textContent = daysLeftString;
-  hoursOutput.textContent = hoursLeftString;
-  minutesOutput.textContent = minutesLeftString;
-  secondsOutput.textContent = secondsLeftString;
-
-  return daysLeftString + " days, " + hoursLeftString + ":" + minutesLeftString + ":" + secondsLeftString;
-}
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time

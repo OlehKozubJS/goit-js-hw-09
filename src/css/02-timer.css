@@ -5,7 +5,6 @@
     margin-inline: auto;
     display: flex;
     justify-content: space-evenly;
-    color: blue;
 }
 
 .field {
@@ -22,6 +21,22 @@
 .label {
     text-align: center;
     font-size: 25px;
+}
+
+.days {
+    color: yellow;
+}
+
+.hours {
+    color: blue;
+}
+
+.minutes {
+    color:red;
+}
+
+.seconds {
+    color: green;
 }
 
 /* CLOCKFACE SETTINGS */
