@@ -3,15 +3,16 @@
 .timer {
     width: 500px;
     margin-inline: auto;
-}
-
-.field {
     display: flex;
     justify-content: space-evenly;
 }
 
+.field {
+    width: 100px;
+}
+
 .value {
-    
+
 }
 
 .label {
