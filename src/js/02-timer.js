@@ -19,6 +19,7 @@ createClockFace(clockFaceContainer);
 let period;
 let difference
 let periodSetInterval = NaN;
+let daysLeft;
 let hoursLeft;
 let minutesLeft;
 let secondsLeft;
