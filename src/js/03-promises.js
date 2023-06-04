@@ -1,7 +1,3 @@
-// all modules
-import Notiflix from 'notiflix';
-
-// one by one
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const firstDelayInput = document.getElementsByName("delay")[0];
@@ -25,7 +21,7 @@ function dataEnteringFunction(e) {
   delayStepData = Number(delayStepInput.value);
   amountData = Number(amountInput.value);
 
-  setTimeout(createPromise, nextDelay, nextNumber, nextDelay);
+  //setTimeout(createPromise, nextDelay, nextNumber, nextDelay);
   createPromisesSI = setInterval(createPromises, delayStepData);
 
   form.reset();
@@ -39,7 +35,6 @@ function createPromises() {
   }
 
   else {
-    nextDelay += delayStepData;
     createPromise(nextNumber, nextDelay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -47,6 +42,8 @@ function createPromises() {
       .catch(({ position, delay }) => {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
+
+    nextDelay += delayStepData;
   }
 }
 
