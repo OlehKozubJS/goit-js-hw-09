@@ -58,24 +58,29 @@ function startFunction() {
 }
 
 function addLeadingZero() {
-    if (period < 1000) {
+    period -= 1000;
+
+    if (period <= 1000) {
       clearInterval(periodSetInterval);
       clockFaceAlert("Time up!");
+
+      daysLeft = 0;  
+      hoursLeft = 0;
+      minutesLeft = 0;
+      secondsLeft = 0;
     }
 
     else {
-      period -= 1000;
-
       daysLeft = convertMs(period).days;  
       hoursLeft = convertMs(period).hours;
       minutesLeft = convertMs(period).minutes;
       secondsLeft = convertMs(period).seconds;
-
-      daysOutput.textContent = String(daysLeft);
-      hoursOutput.textContent = String(hoursLeft).padStart(2, "0");
-      minutesOutput.textContent = String(minutesLeft).padStart(2, "0");
-      secondsOutput.textContent = String(secondsLeft).padStart(2, "0");
     }
+
+    daysOutput.textContent = String(daysLeft);
+    hoursOutput.textContent = String(hoursLeft).padStart(2, "0");
+    minutesOutput.textContent = String(minutesLeft).padStart(2, "0");
+    secondsOutput.textContent = String(secondsLeft).padStart(2, "0");
 
     arrowAnimationFunction(hoursLeft, minutesLeft, secondsLeft);
 }
