@@ -5,7 +5,6 @@ const delayStepInput = document.getElementsByName("step")[0];
 const amountInput = document.getElementsByName("amount")[0];
 const form = document.querySelector("form");
 
-let nextNumber;
 let nextDelay;
 let delayStepData;
 let amountData;
@@ -16,25 +15,19 @@ form.addEventListener("submit", dataEnteringFunction);
 function dataEnteringFunction(e) {
   e.preventDefault();
 
-  nextNumber = 0;
   nextDelay = Number(firstDelayInput.value);
   delayStepData = Number(delayStepInput.value);
   amountData = Number(amountInput.value);
 
-  //setTimeout(createPromise, nextDelay, nextNumber, nextDelay);
-  createPromisesSI = setInterval(createPromises, delayStepData);
+  setTimeout(createPromises, nextDelay);
 
   form.reset();
 }
 
 function createPromises() {
-  nextNumber += 1;
+  for (let nextNumber = 1; nextNumber <= amountData; nextNumber += 1) {
+    setTimeout(createPromise, nextDelay);
 
-  if (nextNumber > amountData) {
-    clearInterval(createPromisesSI);
-  }
-
-  else {
     createPromise(nextNumber, nextDelay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
